@@ -27,6 +27,12 @@
         <fileset id="fileset8" name="My Config" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/springIntroduction/javaCode/realizationMyConfig/MyConfig.java</file>
         </fileset>
+        <fileset id="fileset9" name="Annotation And XML File Context Scope" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/configAnnotationsAndXMLFIle/applicationContextScope.xml</file>
+        </fileset>
+        <fileset id="fileset10" name="Annotation And XML File Context LIfe Cycle" removed="false">
+          <file>file://$MODULE_DIR$/src/main/resources/configAnnotationsAndXMLFIle/applicationContextLifecycle.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -41,12 +47,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Spring-5.2.3.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.9" level="project" />
+    <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
   </component>
 </module>
