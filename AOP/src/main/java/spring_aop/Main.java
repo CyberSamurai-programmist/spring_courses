@@ -9,11 +9,13 @@ public class Main {
 
 
         UniLibrary uniLibrary = context.getBean("uniLibrary", UniLibrary.class);
-        //        Book book = context.getBean("book", Book.class);
+        Book book = context.getBean("book", Book.class);
+
         uniLibrary.getBook();
-        uniLibrary.returnMagazine();
-        uniLibrary.addBook();
-        uniLibrary.returnBook();
+        uniLibrary.addBook("Matvey", book);
+        uniLibrary.getMagazine();
+
+//        uniLibrary.returnBook();
 
 //        uniLibrary.getBook("Преступление и наказание");
 //        uniLibrary.getMagazine(18);

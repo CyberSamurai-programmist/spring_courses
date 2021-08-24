@@ -1,27 +1,67 @@
 package spring_aop;
 
+import jdk.jshell.MethodSnippet;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAndSecurityAspect {
+@Order(1)
+public class LoggingAspect {
 
-    @Pointcut("execution(* spring_aop.UniLibrary.*(..))")
-    private void allMethodsFromUniLibrary(){}
+    //    @Before("execution(public * get*())")
+    @Before("spring_aop.MyPointcuts.allAddMethods()")
+    public void beforeAddLoggingAdvice(JoinPoint joinPoint) {
 
-    @Pointcut("execution(public void spring_aop.UniLibrary.returnMagazine())")
-    private void returnMagazineFromUniLibrary(){}
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("MethodSignature = "
+                + methodSignature);
+        System.out.println("MethodSignature.getMethod() = "
+                + methodSignature.getMethod());
+        System.out.println("MethodSignature.getReturnType() = "
+                + methodSignature.getReturnType());
+        System.out.println("MethodSignature.getName() = "
+                + methodSignature.getName());
 
-    @Pointcut("allMethodsFromUniLibrary() && !returnMagazineFromUniLibrary() ")
-    private void allMethodsExceptReturnMagazineFromUniLibrary(){}
+        if (methodSignature.getName().equals("addBook")) {
+            Object[] arg = joinPoint.getArgs();
+            for (Object obj : arg) {
+                if (obj instanceof Book) {
+                    Book myBook = (Book) obj;
+                    System.out.println("Информация о книге: название - " +
+                            myBook.getName() + ", автор - " + myBook.getAuthor() +
+                            ", год издания - " + myBook.getYearOfPublication());
+                }
+                else if (obj instanceof String){
+                    System.out.println("книгу в библиотеку добавляет " + obj);
+                }
+            }
+        }
 
-    @Before("allMethodsExceptReturnMagazineFromUniLibrary()")
-    public void beforeAllMethodsExceptReturnMagazineAdvice(){
-        System.out.println("beforeAllMethodsExceptReturnMagazineAdvice : Log #10");
+
+        System.out.println("beforeGetBookAdvice : логирование " +
+                "попытки получить книгу/журнал");
+        System.out.println("--------------------------------------------");
     }
+
+//    @Pointcut("execution(* spring_aop.UniLibrary.*(..))")
+//    private void allMethodsFromUniLibrary(){}
+//
+//    @Pointcut("execution(public void spring_aop.UniLibrary.returnMagazine())")
+//    private void returnMagazineFromUniLibrary(){}
+//
+//    @Pointcut("allMethodsFromUniLibrary() && !returnMagazineFromUniLibrary() ")
+//    private void allMethodsExceptReturnMagazineFromUniLibrary(){}
+//
+//    @Before("allMethodsExceptReturnMagazineFromUniLibrary()")
+//    public void beforeAllMethodsExceptReturnMagazineAdvice(){
+//        System.out.println("beforeAllMethodsExceptReturnMagazineAdvice : Log #10");
+//    }
 
 //    @Pointcut("execution(* spring_aop.UniLibrary.get*())")
 //    private void allGetMethodFromUniLibrary(){}
@@ -46,10 +86,6 @@ public class LoggingAndSecurityAspect {
 //    @Before("allGetAndReturnMethodFromUniLibrary()")
 //    public void beforeGetAndReturnLoggingAdvice(){
 //        System.out.println("beforeGetAndReturnLoggingAdvice: writing log #3");
-//    }
-
-//    @Pointcut("execution(* get*())")
-//    private void allGetMethods() {
 //    }
 
 //    @Before("execution(public void getBook())")
@@ -100,17 +136,5 @@ public class LoggingAndSecurityAspect {
 //    @Before("execution(* returnBook())")
 //    public void beforeReturnBookAdvice(){
 //        System.out.println("beforeReturnBookAdvice : попытка вернуть книгу");
-//    }
-
-//    @Before("execution(public * get*())")
-//    @Before("allGetMethods()")
-//    public void beforeGetBookAdvice() {
-//        System.out.println("beforeGetBookAdvice : попытка получить книгу/журнал");
-//    }
-//
-////    @Before("execution(* get*())")
-//    @Before("allGetMethods()")
-//    public void beforeGetSecurityAdvice() {
-//        System.out.println("beforeGetSecurityAdvice : проверка прав на получение книги/журнала");
 //    }
 }
