@@ -5,6 +5,7 @@
   Time: 14:49
   To change this template use File | Settings | File Templates.
 --%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,14 +13,27 @@
 </head>
 <body>
 
-<h2>Dear Employee, Please enter your details</h2>
+<form:form action="showDetails" modelAttribute="employee">
 
-<form action="showDetails" method="get">
-    <input type="text" name="employeeName" placeholder="Write your name"/>
+    <h2>Dear Employee, Please enter your details</h2>
+    <hr>
+    <br><br>
 
-    <input type="submit">
+    Name <form:input path="name"/>
+    <br><br>
+    Surname <form:input path="surname"/>
+    <br><br>
+    Salary <form:input path="salary"/>
+    <br><br>
+    Department <form:select path="department">
+<%--    <form:options items="${employee.departments}"/>--%>
+    <form:option value="Information Technology" label="IT"/>
+    <form:option value="Human Resources" label="HR"/>
+    <form:option value="Sales" label="Sales"/>
+</form:select>
 
-</form>
+    <input type="submit" value="OK"/>
 
+</form:form>
 </body>
 </html>
